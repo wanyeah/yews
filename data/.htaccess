@@ -1,0 +1,8 @@
+# 禁止通过 HTTP 直接访问文章正文文件（PHP 内部 include 不受影响）
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

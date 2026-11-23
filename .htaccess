@@ -1,0 +1,28 @@
+# 企业简约官网 —— Apache 配置（Nginx 服务器可忽略本文件）
+# 注意：本文件仅对 Apache 生效。Nginx / 宝塔用户请改用 docs/nginx-rewrite.conf，
+#      把本文件内容贴进宝塔「伪静态」会报 unknown directive "DirectoryIndex" 之类的错误。
+DirectoryIndex index.php index.html
+
+# 禁止目录列表（防止 data/ uploads/ 被直接列出）
+Options -Indexes
+
+# 自定义错误页（部署在子目录时，请把路径改为 /子目录名/404.php）
+ErrorDocument 404 /404.php
+ErrorDocument 403 /403.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # 强制隐藏 index.php：/article/index.php?id=1  →  /article/?id=1
+    RewriteCond %{THE_REQUEST} /index\.php [NC]
+    RewriteRule ^(.*?)index\.php$ /$1 [R=301,L,NE]
+
+    # 目录访问自动补 index.php，保证 /article/?id=1 / /news/ 可正常打开
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^(.+)/$ $1/index.php [L]
+</IfModule>
+
+# 安全响应头
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

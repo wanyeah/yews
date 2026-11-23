@@ -1,0 +1,22 @@
+<div class="post-body markdown-body">
+<h1>官网正式上线</h1>
+<p>经过数月的打磨，晚夜工作室官方网站正式上线了。这是一个开始，也是我们把想法落地的第一块基石。</p>
+<h2>这次我们做了什么</h2>
+<ul>
+<li>从零搭建了整个站点的内容架构与视觉体系</li>
+<li>建立了完整的后台内容管理系统，支持 Markdown 写作</li>
+<li>文章正文以本地文件方式存储，读取更快、迁移更轻</li>
+<li>做好了阅读去重、防注入等基础安全能力</li>
+</ul>
+<h2>关于技术选型</h2>
+<p>站点采用 <strong>PHP + MySQL</strong> 的经典组合，没有任何重型框架，也没有外部网络依赖，所有组件都已本地化：</p>
+<pre><code class="language-php">// 文章正文读取：先查数据库拿到编号，再读本地正文
+$post = db_one('SELECT * FROM isw_posts WHERE id = ? AND status = 1', array($id));
+$content = get_post_content($id); // data/posts/{id}.html</code></pre>
+<p>这样做的好处是，数据库里只保留编号、标题、作者、IP、点击量等元信息，正文这种&quot;重资产&quot;交给文件系统，既轻量又便于备份。</p>
+<h2>接下来</h2>
+<p>我们会持续在这里记录团队的进展、思考与公告。也欢迎你通过页面底部的邮箱与我们联系。</p>
+<blockquote>
+<p>做好量变的准备，促进事物的质变。</p>
+</blockquote>
+</div><!-- /.post-body -->

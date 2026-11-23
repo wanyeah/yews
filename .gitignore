@@ -1,0 +1,23 @@
+uploads/*
+!uploads/.gitkeep
+
+install/install.lock
+
+*.log
+*.tmp
+*.bak
+*~
+
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# 含生产环境账号密码 / 本机配置，绝不入库
+includes/config.php
+
+# 工作目录与软著申请材料（本地产物，含笔记与生成脚本，不上传）
+.workbuddy/
+软著材料/
